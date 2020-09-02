@@ -37,6 +37,7 @@ def train(model, max_len=200000, batch_size=64, verbose=True, epochs=100, save_p
                           save_best_only=save_best, 
                           save_weights_only=False)
     
+    # x_train in _main_
     history = model.fit_generator(
         utils.data_generator(x_train, y_train, max_len, batch_size, shuffle=True),
         steps_per_epoch=len(x_train)//batch_size + 1,
@@ -67,7 +68,8 @@ if __name__ == '__main__':
     # prepare data
     # preprocess is handled in utils.data_generator
     df = pd.read_csv(args.csv, header=None)
-    data, label = df[0].values, df[1].values
+    sample_path = "/yiyuan/data/home/wanghuozhu/ws/share/0win_share/malconv_keras_samples/"
+    data, label = sample_path + df[0].values, df[1].values # data is file_path
     x_train, x_test, y_train, y_test = utils.train_test_split(data, label, args.val_size)
     print('Train on %d data, test on %d data' % (len(x_train), len(x_test)))
     
