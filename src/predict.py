@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 import pandas as pd
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 import utils
 from preprocess import preprocess

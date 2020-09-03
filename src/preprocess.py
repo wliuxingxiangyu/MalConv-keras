@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description='Malconv-keras classifier')
 parser.add_argument('--max_len', type=int, default=200000)
 parser.add_argument('--save_path', type=str, default='../saved/preprocess_data.pkl')
 parser.add_argument('csv', type=str)
+sample_dir = "/yiyuan/data/home/wanghuozhu/ws/share/0win_share/malconv_keras_samples/"
 
 def preprocess(fn_list, max_len):
     '''
@@ -17,6 +18,7 @@ def preprocess(fn_list, max_len):
     '''
     corpus = []
     for fn in fn_list:
+        fn = sample_dir + fn
         if not os.path.isfile(fn):
             print(fn, 'not exist')
         else:
@@ -26,6 +28,7 @@ def preprocess(fn_list, max_len):
     corpus = [[byte for byte in doc] for doc in corpus]
     len_list = [len(doc) for doc in corpus]
     seq = pad_sequences(corpus, maxlen=max_len, padding='post', truncating='post')
+    # print("preprocess() len_list:%s" % len_list)
     return seq, len_list
 
 

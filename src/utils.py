@@ -10,7 +10,7 @@ def limit_gpu_memory(per):
     set_session(tf.Session(config=config))
 
     
-def train_test_split(data, label, val_size=0.1):
+def train_test_split(data, label, val_size=0.2):
     idx = np.arange(len(data))
     np.random.shuffle(idx)
     split = int(len(data)*val_size)
@@ -26,7 +26,7 @@ def data_generator(data, labels, max_len=200000, batch_size=64, shuffle=True):
     batches = [idx[range(batch_size*i, min(len(data), batch_size*(i+1)))] for i in range(len(data)//batch_size+1)]
     while True:
         for i in batches:
-            xx = preprocess(data[i], max_len)[0]
+            xx = preprocess(data[i], max_len)[0] # each file padding to max_len bytes.
             yy = labels[i]
             yield (xx, yy)
 
